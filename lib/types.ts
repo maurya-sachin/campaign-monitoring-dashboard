@@ -8,3 +8,7 @@ export interface ApiError {
   message: string;
   statusCode?: number;
 }
+
+export interface CampaignListResponse {
+  campaigns: Campaign[];
+}
