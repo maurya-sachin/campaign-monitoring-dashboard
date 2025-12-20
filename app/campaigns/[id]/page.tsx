@@ -4,7 +4,7 @@ import { Metric } from "@/components/Metric";
 import { NotFound } from "@/components/NotFound";
 
 interface CampaignPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 async function getCampaign(id: string): Promise<Campaign> {
@@ -20,13 +20,15 @@ async function getCampaignInsights(id: string): Promise<CampaignInsights> {
 }
 
 export default async function CampaignPage({ params }: CampaignPageProps) {
+  const { id } = await params;
+
   let campaign;
   let insights;
 
   try {
     [campaign, insights] = await Promise.all([
-      getCampaign(params.id),
-      getCampaignInsights(params.id),
+      getCampaign(id),
+      getCampaignInsights(id),
     ]);
   } catch (error) {
     if (error instanceof ApiError && error.status === 404) {
