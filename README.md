@@ -1,29 +1,33 @@
 # Mixo Ads – Campaign Monitoring Dashboard
 
-A lightweight, production-oriented campaign monitoring dashboard built with Next.js App Router and TypeScript.
+**Live Demo:** [https://campaign-monitoring-dashboard-kappa.vercel.app/](https://campaign-monitoring-dashboard-kappa.vercel.app/)
 
-The goal of this project is to present campaign performance data in a clear, usable way without unnecessary complexity.
+**GitHub Repository:** [https://github.com/maurya-sachin/campaign-monitoring-dashboard](https://github.com/maurya-sachin/campaign-monitoring-dashboard)
+
+A production-oriented campaign monitoring dashboard built using Next.js App Router and TypeScript.
+
+The focus of this project is **usability, clarity, and maintainability**—prioritizing functional product behavior over visual polish or animations.
 
 ---
 
 ## Features
 
-- Dashboard summary with aggregated campaign metrics
-- Campaign table with platform and budget visibility
-- Detailed campaign view with performance insights
-- Graceful loading, error, and rate-limit handling
+- Aggregated campaign performance overview
+- Campaign table with platform, budget, and status visibility
+- Detailed campaign view with performance metrics
+- Graceful loading, error, not-found, and rate-limit handling
 - Accessible, semantic UI components
 
 ---
 
 ## Tech Stack
 
-- Next.js 14 (App Router)
+- Next.js (App Router)
 - TypeScript
 - Tailwind CSS
 - Native Fetch API (server-side)
 
-No additional state-management or data-fetching libraries were used intentionally.
+No additional state-management or data-fetching libraries were used intentionally to keep the codebase easy to reason about.
 
 ---
 
@@ -31,28 +35,28 @@ No additional state-management or data-fetching libraries were used intentionall
 
 ### Server-first data fetching
 
-All data is fetched on the server using Next.js Server Components.
-This keeps the UI fast, reduces client-side complexity, and avoids unnecessary state management.
+All data is fetched using Next.js Server Components.
+This reduces client-side complexity, improves performance, and avoids unnecessary state management.
 
-### Summary + table layout
+### Summary + table dashboard layout
 
 The dashboard combines:
 
-- Aggregated metric cards for quick situational awareness
-- A detailed campaign table for operational inspection
+- High-level aggregated metrics for quick awareness
+- A detailed table for campaign inspection
 
-This mirrors how real campaign monitoring tools are typically used.
+This mirrors how real-world campaign monitoring tools are typically used.
 
 ### No charts (by design)
 
 Charts were intentionally avoided to keep the UI focused and readable.
-The provided metrics already convey the necessary insights without additional visual noise.
+The provided metrics already convey actionable insights without added visual noise.
 
 ### Error & rate-limit handling
 
-- Global error boundary for failed requests
-- Explicit handling for rate-limited responses (HTTP 429)
-- Manual retry instead of automatic retries to avoid request storms
+- Centralized error boundary
+- Explicit handling for HTTP 429 (rate-limit) responses
+- Manual retry to avoid request storms
 
 ---
 
@@ -60,39 +64,37 @@ The provided metrics already convey the necessary insights without additional vi
 
 - Semantic HTML tables with captions
 - Proper heading hierarchy
-- Text-based status indicators (not color-only)
+- Text-based indicators (not color-only)
 
 ---
 
 ## Trade-offs & Limitations
 
 - No pagination or filtering (structure allows easy extension)
-- No real-time streaming (SSE endpoint acknowledged but not implemented)
+- No real-time streaming (SSE endpoint acknowledged but scoped out)
 - No authentication or role-based access
 
-These were intentionally scoped out to prioritize clarity and correctness.
+These were intentionally excluded to prioritize clarity and correctness.
 
 ---
 
-## What I Would Improve Next
+## Future Improvements
 
 - Pagination and filtering for large datasets
-- Optional real-time updates for campaign insights
-- Visual trend indicators (sparklines) where appropriate
+- Optional real-time campaign updates
+- Lightweight trend indicators (sparklines)
 
 ---
 
 ## Local Development
 
-Run the following commands:
-
+```
 npm install
 npm run dev
+```
 
 ---
 
 ## Notes
 
-This project focuses on clean architecture, usability, and explainable decisions over feature volume.
-
----
+This project emphasizes **clean architecture, deliberate trade-offs, and production readiness** over feature volume.
