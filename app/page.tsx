@@ -39,13 +39,21 @@ export default async function DashboardPage() {
         <Metric label="Impressions" value={insights.total_impressions} />
         <Metric label="Clicks" value={insights.total_clicks} />
         <Metric label="Conversions" value={insights.total_conversions} />
-        <Metric label="Total Spend" value={insights.total_spend} />
+        <Metric
+          label="Total Spend"
+          value={insights.total_spend}
+          format="currency"
+        />
       </div>
 
       {/* Efficiency */}
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-        <Metric label="Avg CTR (%)" value={insights.avg_ctr} />
-        <Metric label="Avg CPC" value={insights.avg_cpc} />
+        <Metric
+          label="Avg CTR (%)"
+          value={insights.avg_ctr}
+          format="percentage"
+        />
+        <Metric label="Avg CPC" value={insights.avg_cpc} format="currency" />
         <Metric
           label="Avg Conversion Rate (%)"
           value={insights.avg_conversion_rate}

@@ -74,10 +74,14 @@ export default async function CampaignPage({ params }: CampaignPageProps) {
         <Metric label="Impressions" value={insights.impressions} />
         <Metric label="Clicks" value={insights.clicks} />
         <Metric label="Conversions" value={insights.conversions} />
-        <Metric label="Spend" value={insights.spend} />
-        <Metric label="CTR (%)" value={insights.ctr} />
-        <Metric label="CPC" value={insights.cpc} />
-        <Metric label="Conversion Rate (%)" value={insights.conversion_rate} />
+        <Metric label="Spend" value={insights.spend} format="currency" />
+        <Metric label="CTR (%)" value={insights.ctr} format="percentage" />
+        <Metric label="CPC" value={insights.cpc} format="currency" />
+        <Metric
+          label="Conversion Rate (%)"
+          value={insights.conversion_rate}
+          format="percentage"
+        />
       </div>
     </section>
   );
