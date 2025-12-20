@@ -69,6 +69,16 @@ export default async function CampaignPage({ params }: CampaignPageProps) {
           <div className="font-medium">{campaign.daily_budget}</div>
         </div>
       </div>
+
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+        <Metric label="Impressions" value={insights.impressions} />
+        <Metric label="Clicks" value={insights.clicks} />
+        <Metric label="Conversions" value={insights.conversions} />
+        <Metric label="Spend" value={insights.spend} />
+        <Metric label="CTR (%)" value={insights.ctr} />
+        <Metric label="CPC" value={insights.cpc} />
+        <Metric label="Conversion Rate (%)" value={insights.conversion_rate} />
+      </div>
     </section>
   );
 }

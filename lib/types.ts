@@ -36,8 +36,9 @@ export interface AggregatedInsights {
 export interface CampaignInsights {
   impressions: number;
   clicks: number;
+  conversions: number;
   spend: number;
+  ctr: number;
   cpc: number;
-  cpm: number;
   conversion_rate: number;
 }
