@@ -22,3 +22,12 @@ export interface AggregatedInsights {
   total_clicks: number;
   total_spend: number;
 }
+
+export interface CampaignInsights {
+  impressions: number;
+  clicks: number;
+  spend: number;
+  cpc: number;
+  cpm: number;
+  conversion_rate: number;
+}
