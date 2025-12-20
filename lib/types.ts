@@ -7,11 +7,6 @@ export interface Campaign {
   platforms: string[];
 }
 
-export interface ApiError {
-  message: string;
-  statusCode?: number;
-}
-
 export interface CampaignListResponse {
   campaigns: Campaign[];
 }
