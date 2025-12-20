@@ -2,6 +2,9 @@ export interface Campaign {
   id: string;
   name: string;
   status: "active" | "paused" | "completed";
+  budget: number;
+  daily_budget: number;
+  platforms: string[];
 }
 
 export interface ApiError {

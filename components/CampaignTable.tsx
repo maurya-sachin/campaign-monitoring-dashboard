@@ -12,6 +12,8 @@ export function CampaignTable({ campaigns }: CampaignTableProps) {
         <thead className="bg-gray-100 text-left">
           <tr>
             <th className="px-4 py-2 font-medium">Name</th>
+            <th className="px-4 py-2 font-medium">Platform</th>
+            <th className="px-4 py-2 font-medium">Daily Budget</th>
             <th className="px-4 py-2 font-medium">Status</th>
           </tr>
         </thead>
@@ -27,7 +29,17 @@ export function CampaignTable({ campaigns }: CampaignTableProps) {
                 </Link>
               </td>
 
-              <td className="px-4 py-2 text-gray-600">{campaign.status}</td>
+              <td className="px-4 py-2 text-gray-600 capitalize">
+                {campaign.platforms.join(", ")}
+              </td>
+
+              <td className="px-4 py-2 text-gray-600">
+                {campaign.daily_budget}
+              </td>
+
+              <td className="px-4 py-2 text-gray-600 capitalize">
+                {campaign.status}
+              </td>
             </tr>
           ))}
         </tbody>
