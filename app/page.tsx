@@ -24,7 +24,7 @@ export default async function DashboardPage() {
 
   return (
     <section className="space-y-6">
-      <h2 className="text-xl font-semibold">Dashboard</h2>
+      <h1 className="text-xl font-semibold">Dashboard</h1>
 
       {/* Summary */}
       <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
@@ -57,6 +57,7 @@ export default async function DashboardPage() {
         <Metric
           label="Avg Conversion Rate (%)"
           value={insights.avg_conversion_rate}
+          format="percentage"
         />
       </div>
 
