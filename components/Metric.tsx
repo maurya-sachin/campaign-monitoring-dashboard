@@ -19,7 +19,7 @@ export function Metric({ label, value, format = "number" }: MetricProps) {
       : formatNumber(value);
 
   return (
-    <div className="rounded border bg-white p-4">
+    <div className="rounded border bg-white p-4 min-h-[84px]">
       <div className="text-sm text-gray-500">{label}</div>
       <div className="text-xl font-semibold">{formattedValue}</div>
     </div>

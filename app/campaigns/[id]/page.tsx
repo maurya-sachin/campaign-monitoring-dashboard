@@ -42,7 +42,7 @@ export default async function CampaignPage({ params }: CampaignPageProps) {
   }
 
   return (
-    <section className="space-y-6">
+    <section className="space-y-10">
       <header className="space-y-1">
         <h2 className="text-xl font-semibold">{campaign.name}</h2>
         <p className="text-sm text-gray-600 capitalize">

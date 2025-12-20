@@ -23,50 +23,63 @@ export default async function DashboardPage() {
   ]);
 
   return (
-    <section className="space-y-6">
+    <section className="space-y-10">
       <h1 className="text-xl font-semibold">Dashboard</h1>
 
       {/* Summary */}
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-        <Metric label="Total Campaigns" value={insights.total_campaigns} />
-        <Metric label="Active" value={insights.active_campaigns} />
-        <Metric label="Paused" value={insights.paused_campaigns} />
-        <Metric label="Completed" value={insights.completed_campaigns} />
+      <div className="space-y-4">
+        <h2 className="text-sm font-medium text-gray-700">Summary</h2>
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          <Metric label="Total Campaigns" value={insights.total_campaigns} />
+          <Metric label="Active" value={insights.active_campaigns} />
+          <Metric label="Paused" value={insights.paused_campaigns} />
+          <Metric label="Completed" value={insights.completed_campaigns} />
+        </div>
       </div>
 
       {/* Performance */}
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-        <Metric label="Impressions" value={insights.total_impressions} />
-        <Metric label="Clicks" value={insights.total_clicks} />
-        <Metric label="Conversions" value={insights.total_conversions} />
-        <Metric
-          label="Total Spend"
-          value={insights.total_spend}
-          format="currency"
-        />
+      <div className="space-y-4">
+        <h2 className="text-sm font-medium text-gray-700">Performance</h2>
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          <Metric label="Impressions" value={insights.total_impressions} />
+          <Metric label="Clicks" value={insights.total_clicks} />
+          <Metric label="Conversions" value={insights.total_conversions} />
+          <Metric
+            label="Total Spend"
+            value={insights.total_spend}
+            format="currency"
+          />
+        </div>
       </div>
 
       {/* Efficiency */}
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-        <Metric
-          label="Avg CTR (%)"
-          value={insights.avg_ctr}
-          format="percentage"
-        />
-        <Metric label="Avg CPC" value={insights.avg_cpc} format="currency" />
-        <Metric
-          label="Avg Conversion Rate (%)"
-          value={insights.avg_conversion_rate}
-          format="percentage"
-        />
+      <div className="space-y-4">
+        <h2 className="text-sm font-medium text-gray-700">Efficiency</h2>
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+          <Metric
+            label="Avg CTR"
+            value={insights.avg_ctr}
+            format="percentage"
+          />
+          <Metric label="Avg CPC" value={insights.avg_cpc} format="currency" />
+          <Metric
+            label="Avg Conversion Rate"
+            value={insights.avg_conversion_rate}
+            format="percentage"
+          />
+        </div>
       </div>
 
       {/* Campaigns */}
-      {campaigns.length === 0 ? (
-        <EmptyState message="No campaigns available." />
-      ) : (
-        <CampaignTable campaigns={campaigns} />
-      )}
+      <div className="space-y-4">
+        <h2 className="text-sm font-medium text-gray-700">Campaigns</h2>
+
+        {campaigns.length === 0 ? (
+          <EmptyState message="No campaigns available." />
+        ) : (
+          <CampaignTable campaigns={campaigns} />
+        )}
+      </div>
     </section>
   );
 }
