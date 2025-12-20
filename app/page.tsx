@@ -26,12 +26,30 @@ export default async function DashboardPage() {
     <section className="space-y-6">
       <h2 className="text-xl font-semibold">Dashboard</h2>
 
-      {/* Metrics */}
+      {/* Summary */}
       <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
         <Metric label="Total Campaigns" value={insights.total_campaigns} />
         <Metric label="Active" value={insights.active_campaigns} />
         <Metric label="Paused" value={insights.paused_campaigns} />
         <Metric label="Completed" value={insights.completed_campaigns} />
+      </div>
+
+      {/* Performance */}
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+        <Metric label="Impressions" value={insights.total_impressions} />
+        <Metric label="Clicks" value={insights.total_clicks} />
+        <Metric label="Conversions" value={insights.total_conversions} />
+        <Metric label="Total Spend" value={insights.total_spend} />
+      </div>
+
+      {/* Efficiency */}
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+        <Metric label="Avg CTR (%)" value={insights.avg_ctr} />
+        <Metric label="Avg CPC" value={insights.avg_cpc} />
+        <Metric
+          label="Avg Conversion Rate (%)"
+          value={insights.avg_conversion_rate}
+        />
       </div>
 
       {/* Campaigns */}
