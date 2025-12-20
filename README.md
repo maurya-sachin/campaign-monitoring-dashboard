@@ -1,30 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mixo Ads – Campaign Monitoring Dashboard
 
-## Getting Started
+A lightweight, production-oriented campaign monitoring dashboard built with Next.js App Router and TypeScript.
 
-First, run the development server:
+The goal of this project is to present campaign performance data in a clear, usable way without unnecessary complexity.
 
-```bash
-pnpm dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Dashboard summary with aggregated campaign metrics
+- Campaign table with platform and budget visibility
+- Detailed campaign view with performance insights
+- Graceful loading, error, and rate-limit handling
+- Accessible, semantic UI components
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- Next.js 14 (App Router)
+- TypeScript
+- Tailwind CSS
+- Native Fetch API (server-side)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+No additional state-management or data-fetching libraries were used intentionally.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Key Architecture Decisions
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Server-first data fetching
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+All data is fetched on the server using Next.js Server Components.
+This keeps the UI fast, reduces client-side complexity, and avoids unnecessary state management.
+
+### Summary + table layout
+
+The dashboard combines:
+
+- Aggregated metric cards for quick situational awareness
+- A detailed campaign table for operational inspection
+
+This mirrors how real campaign monitoring tools are typically used.
+
+### No charts (by design)
+
+Charts were intentionally avoided to keep the UI focused and readable.
+The provided metrics already convey the necessary insights without additional visual noise.
+
+### Error & rate-limit handling
+
+- Global error boundary for failed requests
+- Explicit handling for rate-limited responses (HTTP 429)
+- Manual retry instead of automatic retries to avoid request storms
+
+---
+
+## Accessibility
+
+- Semantic HTML tables with captions
+- Proper heading hierarchy
+- Text-based status indicators (not color-only)
+
+---
+
+## Trade-offs & Limitations
+
+- No pagination or filtering (structure allows easy extension)
+- No real-time streaming (SSE endpoint acknowledged but not implemented)
+- No authentication or role-based access
+
+These were intentionally scoped out to prioritize clarity and correctness.
+
+---
+
+## What I Would Improve Next
+
+- Pagination and filtering for large datasets
+- Optional real-time updates for campaign insights
+- Visual trend indicators (sparklines) where appropriate
+
+---
+
+## Local Development
+
+Run the following commands:
+
+npm install
+npm run dev
+
+---
+
+## Notes
+
+This project focuses on clean architecture, usability, and explainable decisions over feature volume.
+
+---
