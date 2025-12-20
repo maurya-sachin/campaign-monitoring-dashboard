@@ -1,6 +1,7 @@
-import { fetchFromApi } from "@/lib/api";
+import { ApiError, fetchFromApi } from "@/lib/api";
 import { Campaign, CampaignInsights } from "@/lib/types";
 import { Metric } from "@/components/Metric";
+import { NotFound } from "@/components/NotFound";
 
 interface CampaignPageProps {
   params: { id: string };
@@ -19,10 +20,26 @@ async function getCampaignInsights(id: string): Promise<CampaignInsights> {
 }
 
 export default async function CampaignPage({ params }: CampaignPageProps) {
-  const [campaign, insights] = await Promise.all([
-    getCampaign(params.id),
-    getCampaignInsights(params.id),
-  ]);
+  let campaign;
+  let insights;
+
+  try {
+    [campaign, insights] = await Promise.all([
+      getCampaign(params.id),
+      getCampaignInsights(params.id),
+    ]);
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) {
+      return (
+        <NotFound
+          title="Campaign not found"
+          description="The campaign you’re looking for doesn’t exist or was removed."
+        />
+      );
+    }
+
+    throw error;
+  }
 
   return (
     <section className="space-y-6">
