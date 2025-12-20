@@ -43,18 +43,31 @@ export default async function CampaignPage({ params }: CampaignPageProps) {
 
   return (
     <section className="space-y-6">
-      <header>
+      <header className="space-y-1">
         <h2 className="text-xl font-semibold">{campaign.name}</h2>
-        <p className="text-sm text-gray-600">Status: {campaign.status}</p>
+        <p className="text-sm text-gray-600 capitalize">
+          Status: {campaign.status}
+        </p>
       </header>
 
+      {/* Campaign metadata */}
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-        <Metric label="Impressions" value={insights.impressions} />
-        <Metric label="Clicks" value={insights.clicks} />
-        <Metric label="Spend" value={insights.spend} />
-        <Metric label="CPC" value={insights.cpc} />
-        <Metric label="CPM" value={insights.cpm} />
-        <Metric label="Conversion Rate" value={insights.conversion_rate} />
+        <div className="rounded border bg-white p-4">
+          <div className="text-sm text-gray-500">Platforms</div>
+          <div className="font-medium capitalize">
+            {campaign.platforms.join(", ")}
+          </div>
+        </div>
+
+        <div className="rounded border bg-white p-4">
+          <div className="text-sm text-gray-500">Budget</div>
+          <div className="font-medium">{campaign.budget}</div>
+        </div>
+
+        <div className="rounded border bg-white p-4">
+          <div className="text-sm text-gray-500">Daily Budget</div>
+          <div className="font-medium">{campaign.daily_budget}</div>
+        </div>
       </div>
     </section>
   );
