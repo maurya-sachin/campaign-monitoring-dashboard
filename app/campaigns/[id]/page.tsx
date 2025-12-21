@@ -12,10 +12,6 @@ import {
   Percent,
 } from "lucide-react";
 
-interface CampaignPageProps {
-  params: { id: string };
-}
-
 async function getCampaign(id: string): Promise<Campaign> {
   const data = await fetchFromApi<{ campaign: Campaign }>(`/campaigns/${id}`);
   return data.campaign;
@@ -28,14 +24,20 @@ async function getCampaignInsights(id: string): Promise<CampaignInsights> {
   return data.insights;
 }
 
-export default async function CampaignPage({ params }: CampaignPageProps) {
-  let campaign;
-  let insights;
+export default async function CampaignPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+
+  let campaign: Campaign;
+  let insights: CampaignInsights;
 
   try {
     [campaign, insights] = await Promise.all([
-      getCampaign(params.id),
-      getCampaignInsights(params.id),
+      getCampaign(id),
+      getCampaignInsights(id),
     ]);
   } catch (error) {
     if (error instanceof ApiError && error.status === 404) {
@@ -51,13 +53,12 @@ export default async function CampaignPage({ params }: CampaignPageProps) {
 
   return (
     <section className="space-y-8">
-      {/* Hero */}
       <header className="space-y-2">
         <h1 className="text-2xl font-semibold tracking-tight">
           {campaign.name}
         </h1>
 
-        <div className="flex items-center gap-4 text-sm text-slate-600">
+        <div className="flex items-center gap-4 text-sm text-slate-600 dark:text-slate-400">
           <StatusBadge status={campaign.status} />
           <span className="capitalize">
             Platforms: {campaign.platforms.join(", ")}
@@ -65,7 +66,6 @@ export default async function CampaignPage({ params }: CampaignPageProps) {
         </div>
       </header>
 
-      {/* Budget KPIs */}
       <Panel title="Budget">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <KpiCard
@@ -83,7 +83,6 @@ export default async function CampaignPage({ params }: CampaignPageProps) {
         </div>
       </Panel>
 
-      {/* Performance */}
       <Panel title="Performance">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           <KpiCard
@@ -104,7 +103,6 @@ export default async function CampaignPage({ params }: CampaignPageProps) {
         </div>
       </Panel>
 
-      {/* Efficiency */}
       <Panel title="Efficiency">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           <KpiCard

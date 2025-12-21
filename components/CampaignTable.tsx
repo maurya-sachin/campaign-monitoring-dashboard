@@ -1,7 +1,7 @@
 import { Campaign } from "@/lib/types";
 import Link from "next/link";
-import { memo } from "react";
 import { StatusBadge } from "@/components/StatusBadge";
+import { memo } from "react";
 
 interface CampaignTableProps {
   campaigns: Campaign[];

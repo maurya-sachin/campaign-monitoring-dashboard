@@ -36,7 +36,6 @@ export default async function DashboardPage() {
     <section className="space-y-8">
       <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
 
-      {/* Overview */}
       <Panel title="Overview">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <KpiCard
@@ -62,7 +61,6 @@ export default async function DashboardPage() {
         </div>
       </Panel>
 
-      {/* Performance */}
       <Panel title="Performance">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <KpiCard
@@ -89,7 +87,6 @@ export default async function DashboardPage() {
         </div>
       </Panel>
 
-      {/* Campaigns */}
       <Panel title="Campaigns">
         {campaigns.length === 0 ? (
           <EmptyState message="No campaigns available." />

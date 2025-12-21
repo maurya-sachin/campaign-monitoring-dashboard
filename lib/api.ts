@@ -34,7 +34,7 @@ export async function fetchFromApi<T>(
     try {
       const errorBody = await res.json();
       retryAfter = errorBody.retry_after;
-    } catch {}
+    } catch { }
 
     if (res.status === 429) {
       throw new ApiError(
@@ -44,7 +44,8 @@ export async function fetchFromApi<T>(
       );
     }
 
-    throw new ApiError("Service temporarily unavailable.", res.status);
+    throw new ApiError("Service temporarily unavailable.", res.status, retryAfter);
+
   }
 
   return res.json();
