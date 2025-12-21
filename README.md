@@ -89,7 +89,7 @@ These were intentionally excluded to prioritize clarity and correctness.
 ## Local Development
 
 ```
-npm install
+pnpm install
 npm run dev
 ```
 
