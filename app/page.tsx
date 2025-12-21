@@ -1,8 +1,18 @@
 import { fetchFromApi } from "@/lib/api";
 import { Campaign, AggregatedInsights } from "@/lib/types";
-import { EmptyState } from "@/components/EmptyState";
 import { CampaignTable } from "@/components/CampaignTable";
-import { Metric } from "@/components/Metric";
+import { EmptyState } from "@/components/EmptyState";
+import { Panel } from "@/components/Panel";
+import { KpiCard } from "@/components/KpiCard";
+import {
+  BarChart3,
+  DollarSign,
+  MousePointerClick,
+  Target,
+  Activity,
+  PauseCircle,
+  CheckCircle2,
+} from "lucide-react";
 
 async function getCampaigns(): Promise<Campaign[]> {
   const data = await fetchFromApi<{ campaigns: Campaign[] }>("/campaigns");
@@ -23,63 +33,70 @@ export default async function DashboardPage() {
   ]);
 
   return (
-    <section className="space-y-10">
-      <h1 className="text-xl font-semibold">Dashboard</h1>
+    <section className="space-y-8">
+      <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
 
-      {/* Summary */}
-      <div className="space-y-4">
-        <h2 className="text-sm font-medium text-gray-700">Summary</h2>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          <Metric label="Total Campaigns" value={insights.total_campaigns} />
-          <Metric label="Active" value={insights.active_campaigns} />
-          <Metric label="Paused" value={insights.paused_campaigns} />
-          <Metric label="Completed" value={insights.completed_campaigns} />
+      {/* Overview */}
+      <Panel title="Overview">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <KpiCard
+            label="Total Campaigns"
+            value={insights.total_campaigns}
+            icon={<Target size={18} />}
+          />
+          <KpiCard
+            label="Active"
+            value={insights.active_campaigns}
+            icon={<Activity size={18} />}
+          />
+          <KpiCard
+            label="Paused"
+            value={insights.paused_campaigns}
+            icon={<PauseCircle size={18} />}
+          />
+          <KpiCard
+            label="Completed"
+            value={insights.completed_campaigns}
+            icon={<CheckCircle2 size={18} />}
+          />
         </div>
-      </div>
+      </Panel>
 
       {/* Performance */}
-      <div className="space-y-4">
-        <h2 className="text-sm font-medium text-gray-700">Performance</h2>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          <Metric label="Impressions" value={insights.total_impressions} />
-          <Metric label="Clicks" value={insights.total_clicks} />
-          <Metric label="Conversions" value={insights.total_conversions} />
-          <Metric
+      <Panel title="Performance">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <KpiCard
+            label="Impressions"
+            value={insights.total_impressions}
+            icon={<BarChart3 size={18} />}
+          />
+          <KpiCard
+            label="Clicks"
+            value={insights.total_clicks}
+            icon={<MousePointerClick size={18} />}
+          />
+          <KpiCard
+            label="Conversions"
+            value={insights.total_conversions}
+            icon={<Target size={18} />}
+          />
+          <KpiCard
             label="Total Spend"
             value={insights.total_spend}
             format="currency"
+            icon={<DollarSign size={18} />}
           />
         </div>
-      </div>
-
-      {/* Efficiency */}
-      <div className="space-y-4">
-        <h2 className="text-sm font-medium text-gray-700">Efficiency</h2>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-          <Metric
-            label="Avg CTR"
-            value={insights.avg_ctr}
-            format="percentage"
-          />
-          <Metric label="Avg CPC" value={insights.avg_cpc} format="currency" />
-          <Metric
-            label="Avg Conversion Rate"
-            value={insights.avg_conversion_rate}
-            format="percentage"
-          />
-        </div>
-      </div>
+      </Panel>
 
       {/* Campaigns */}
-      <div className="space-y-4">
-        <h2 className="text-sm font-medium text-gray-700">Campaigns</h2>
-
+      <Panel title="Campaigns">
         {campaigns.length === 0 ? (
           <EmptyState message="No campaigns available." />
         ) : (
           <CampaignTable campaigns={campaigns} />
         )}
-      </div>
+      </Panel>
     </section>
   );
 }

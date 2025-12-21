@@ -1,6 +1,7 @@
 import { Campaign } from "@/lib/types";
 import Link from "next/link";
 import { memo } from "react";
+import { StatusBadge } from "@/components/StatusBadge";
 
 interface CampaignTableProps {
   campaigns: Campaign[];
@@ -12,42 +13,64 @@ const CampaignRow = memo(function CampaignRow({
   campaign: Campaign;
 }) {
   return (
-    <tr className="border-t hover:bg-gray-50">
-      <td className="px-4 py-2">
+    <tr className="group border-t border-slate-100 hover:bg-slate-50
+  dark:border-slate-700 dark:hover:bg-slate-700">
+      <td className="px-4 py-3">
         <Link
           href={`/campaigns/${campaign.id}`}
-          className="text-blue-600 hover:underline"
+          className="font-medium text-slate-900 hover:underline
+  dark:text-slate-100"
         >
           {campaign.name}
         </Link>
       </td>
 
-      <td className="px-4 py-2 text-gray-600 capitalize">
+      <td className="px-4 py-3 text-sm text-slate-400 capitalize">
         {campaign.platforms.join(", ")}
       </td>
 
-      <td className="px-4 py-2 text-gray-600">{campaign.daily_budget}</td>
+      <td className="px-4 py-3 text-right text-sm font-medium text-slate-400">
+        {campaign.daily_budget}
+      </td>
 
-      <td className="px-4 py-2 text-gray-600 capitalize">{campaign.status}</td>
+      <td className="px-4 py-3">
+        <StatusBadge status={campaign.status} />
+      </td>
     </tr>
   );
 });
 
 export function CampaignTable({ campaigns }: CampaignTableProps) {
   return (
-    <div className="overflow-x-auto rounded border bg-white">
+    <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white
+  dark:bg-slate-800 dark:border-slate-700">
       <table className="w-full border-collapse text-sm">
         <caption className="sr-only">
-          List of advertising campaigns with platform, budget, and status
+          List of advertising campaigns
         </caption>
-        <thead className="bg-gray-100 text-left">
-          <tr>
-            <th className="px-4 py-2 font-medium">Name</th>
-            <th className="px-4 py-2 font-medium">Platform</th>
-            <th className="px-4 py-2 font-medium">Daily Budget</th>
-            <th className="px-4 py-2 font-medium">Status</th>
+
+        <thead className="bg-slate-50 dark:bg-slate-700">
+          <tr className="group border-t border-slate-100 hover:bg-slate-50
+  dark:border-slate-700 dark:hover:bg-slate-700">
+            <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wide
+  text-slate-500 dark:text-slate-300">
+              Name
+            </th>
+            <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wide
+  text-slate-500 dark:text-slate-300">
+              Platform
+            </th>
+            <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wide
+  text-slate-500 dark:text-slate-300">
+              Daily Budget
+            </th>
+            <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wide
+  text-slate-500 dark:text-slate-300">
+              Status
+            </th>
           </tr>
         </thead>
+
         <tbody>
           {campaigns.map((campaign) => (
             <CampaignRow key={campaign.id} campaign={campaign} />

@@ -13,12 +13,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-gray-50 text-gray-900">
-        <header className="border-b bg-white px-6 py-4">
-          <h1 className="text-lg font-semibold">Mixo Ads</h1>
+      <body className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100">
+        <header className="border-b bg-white dark:bg-slate-900 dark:border-slate-800">
+          <div className="mx-auto max-w-7xl px-6 py-4">
+            <h1 className="text-lg font-semibold tracking-tight">Mixo Ads</h1>
+          </div>
         </header>
 
-        <main className="p-6">{children}</main>
+        <main className="mx-auto max-w-7xl px-6 py-8">{children}</main>
       </body>
     </html>
   );

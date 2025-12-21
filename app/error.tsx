@@ -21,7 +21,8 @@ export default function Error({
         {isRateLimited ? "Too many requests" : "Something went wrong"}
       </h2>
 
-      <p className="mb-4 text-sm text-gray-600">
+      <p className="mb-4 text-sm text-slate-600 dark:text-slate-300
+">
         {isRateLimited
           ? "You’ve hit the request limit. Please wait a moment and try again."
           : "The service is temporarily unavailable."}

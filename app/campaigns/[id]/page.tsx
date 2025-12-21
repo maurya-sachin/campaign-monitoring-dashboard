@@ -1,10 +1,19 @@
 import { ApiError, fetchFromApi } from "@/lib/api";
 import { Campaign, CampaignInsights } from "@/lib/types";
-import { Metric } from "@/components/Metric";
+import { Panel } from "@/components/Panel";
+import { KpiCard } from "@/components/KpiCard";
+import { StatusBadge } from "@/components/StatusBadge";
 import { NotFound } from "@/components/NotFound";
+import {
+  BarChart3,
+  MousePointerClick,
+  Target,
+  DollarSign,
+  Percent,
+} from "lucide-react";
 
 interface CampaignPageProps {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }
 
 async function getCampaign(id: string): Promise<Campaign> {
@@ -20,15 +29,13 @@ async function getCampaignInsights(id: string): Promise<CampaignInsights> {
 }
 
 export default async function CampaignPage({ params }: CampaignPageProps) {
-  const { id } = await params;
-
   let campaign;
   let insights;
 
   try {
     [campaign, insights] = await Promise.all([
-      getCampaign(id),
-      getCampaignInsights(id),
+      getCampaign(params.id),
+      getCampaignInsights(params.id),
     ]);
   } catch (error) {
     if (error instanceof ApiError && error.status === 404) {
@@ -39,52 +46,87 @@ export default async function CampaignPage({ params }: CampaignPageProps) {
         />
       );
     }
-
     throw error;
   }
 
   return (
-    <section className="space-y-10">
-      <header className="space-y-1">
-        <h2 className="text-xl font-semibold">{campaign.name}</h2>
-        <p className="text-sm text-gray-600 capitalize">
-          Status: {campaign.status}
-        </p>
+    <section className="space-y-8">
+      {/* Hero */}
+      <header className="space-y-2">
+        <h1 className="text-2xl font-semibold tracking-tight">
+          {campaign.name}
+        </h1>
+
+        <div className="flex items-center gap-4 text-sm text-slate-600">
+          <StatusBadge status={campaign.status} />
+          <span className="capitalize">
+            Platforms: {campaign.platforms.join(", ")}
+          </span>
+        </div>
       </header>
 
-      {/* Campaign metadata */}
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-        <div className="rounded border bg-white p-4">
-          <div className="text-sm text-gray-500">Platforms</div>
-          <div className="font-medium capitalize">
-            {campaign.platforms.join(", ")}
-          </div>
+      {/* Budget KPIs */}
+      <Panel title="Budget">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <KpiCard
+            label="Total Budget"
+            value={campaign.budget}
+            format="currency"
+            icon={<DollarSign size={18} />}
+          />
+          <KpiCard
+            label="Daily Budget"
+            value={campaign.daily_budget}
+            format="currency"
+            icon={<DollarSign size={18} />}
+          />
         </div>
+      </Panel>
 
-        <div className="rounded border bg-white p-4">
-          <div className="text-sm text-gray-500">Budget</div>
-          <div className="font-medium">{campaign.budget}</div>
+      {/* Performance */}
+      <Panel title="Performance">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <KpiCard
+            label="Impressions"
+            value={insights.impressions}
+            icon={<BarChart3 size={18} />}
+          />
+          <KpiCard
+            label="Clicks"
+            value={insights.clicks}
+            icon={<MousePointerClick size={18} />}
+          />
+          <KpiCard
+            label="Conversions"
+            value={insights.conversions}
+            icon={<Target size={18} />}
+          />
         </div>
+      </Panel>
 
-        <div className="rounded border bg-white p-4">
-          <div className="text-sm text-gray-500">Daily Budget</div>
-          <div className="font-medium">{campaign.daily_budget}</div>
+      {/* Efficiency */}
+      <Panel title="Efficiency">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <KpiCard
+            label="Spend"
+            value={insights.spend}
+            format="currency"
+            icon={<DollarSign size={18} />}
+          />
+          <KpiCard
+            label="CTR"
+            value={insights.ctr}
+            format="percentage"
+            icon={<Percent size={18} />}
+          />
+          <KpiCard
+            label="CPC"
+            value={insights.cpc}
+            format="currency"
+            icon={<DollarSign size={18} />}
+          />
         </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-        <Metric label="Impressions" value={insights.impressions} />
-        <Metric label="Clicks" value={insights.clicks} />
-        <Metric label="Conversions" value={insights.conversions} />
-        <Metric label="Spend" value={insights.spend} format="currency" />
-        <Metric label="CTR (%)" value={insights.ctr} format="percentage" />
-        <Metric label="CPC" value={insights.cpc} format="currency" />
-        <Metric
-          label="Conversion Rate (%)"
-          value={insights.conversion_rate}
-          format="percentage"
-        />
-      </div>
+      </Panel>
     </section>
   );
 }

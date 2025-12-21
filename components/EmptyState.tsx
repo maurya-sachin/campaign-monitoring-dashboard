@@ -4,7 +4,8 @@ interface EmptyStateProps {
 
 export function EmptyState({ message }: EmptyStateProps) {
   return (
-    <div className="rounded border bg-white p-4 text-sm text-gray-600">
+    <div className="rounded-xl bg-white p-4 text-sm text-slate-600
+  dark:bg-slate-800 dark:text-slate-300">
       {message}
     </div>
   );
